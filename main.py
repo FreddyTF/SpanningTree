@@ -33,6 +33,7 @@ for zeile in nodeEingabeString:
 
 
 
+
 for zeile in eingabeGewichteString:
 	print(zeile)
 	zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
