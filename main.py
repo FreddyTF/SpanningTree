@@ -1,5 +1,5 @@
 import logging
-
+from classes import Node
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
 
@@ -18,6 +18,7 @@ alle Zeilen mit = in einen Array
 alle Zeile mit : in einen Array
 
 """
+
 nodeEingabeString = []
 eingabeGewichteString = []
 
@@ -27,7 +28,6 @@ inhalt = []
 
 zeilenanzahl = 0
 for zeile in eingabe:
-	print(zeile)
 	inhalt.append(zeile)
 	zeilenanzahl += 1
 logging.info("zeilenanzahl = " + str(zeilenanzahl))
@@ -53,44 +53,35 @@ anzahl_nodes  = 0
 anzahl_kanten = 0
 
 for zeile in nodeEingabeString:
-	print("Bin in for zeile in nodeEingabestring")
-	anzahl_nodes +=  1
-
-print(anzahl_nodes)
+	anzahl_nodes += 1
 
 for zeile in eingabeGewichteString:
 	anzahl_kanten += 1
 
-dataNodes = [[0 for x in range(anzahl_nodes)] for y in range(2)]
-print(dataNodes)
+#dataNodes = [[0 for x in range(anzahl_nodes)] for y in range(2)]
+nodes = []
 
 for zeile in nodeEingabeString:
-	print(zeile)
 	zeile = zeile.replace(' ', "").replace(';','').replace('\n','')
 	ortZeichenIstgleich = zeile.find("=")
 	nodeName = zeile[0:ortZeichenIstgleich]
 	if(len(nodeName) > MAX_IDENT):
 		exit()
-	print("NodeName:---" + nodeName + "---")
 	nodeId = int(zeile[ortZeichenIstgleich+1:])
 	if not (1 <= nodeId and nodeId <= MAX_NODE_ID):
 		exit()
-	print("NodeId:---" , nodeId , "---")
+	node = Node(nodeName, nodeId)
+	nodes.append(node)
 
 for zeile in eingabeGewichteString:
-	print(zeile)
+
 	zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
 	ortZeichenBindestrich = zeile.find("-")
 	ortZeichenDoppelPunkt = zeile.find(":")
 	node1 = zeile[0:ortZeichenBindestrich]
-	print("Node1:---" + node1 + "---")
 	node2 = zeile[ortZeichenBindestrich+1:ortZeichenDoppelPunkt]
-	print("Node2:---" + node2 + "---")
 	kantenGewicht = int(zeile[ortZeichenDoppelPunkt+1:])
-
-
 
 	if kantenGewicht > MAX_KOSTEN:
 		exit()
-	print("Kantengewicht:---" , kantenGewicht , "---")
 
