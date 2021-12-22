@@ -1,5 +1,7 @@
 import logging
-from classes import Node
+from classes import Node, Link
+from functions import gewichteEintrange, nodesEintragen
+
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
 
@@ -41,10 +43,10 @@ for zeile in inhalt:
 	if not zeile.__contains__("//"):
 		if(zeile.__contains__("=")):
 			nodeEingabeString.append(zeile)
-			logging.info("node hinzugefügt")
+			logging.info("node hinzugefügt zur passenden Liste")
 		elif(zeile.__contains__("-") and zeile.__contains__(":")):
 			eingabeGewichteString.append(zeile)
-			logging.info("Kante hinzugefügt")
+			logging.info("Kante hinzugefügt zur passenden Liste")
 
 eingabe.close()
 
@@ -58,30 +60,10 @@ for zeile in nodeEingabeString:
 for zeile in eingabeGewichteString:
 	anzahl_kanten += 1
 
-#dataNodes = [[0 for x in range(anzahl_nodes)] for y in range(2)]
 nodes = []
+node_names = []
 
-for zeile in nodeEingabeString:
-	zeile = zeile.replace(' ', "").replace(';','').replace('\n','')
-	ortZeichenIstgleich = zeile.find("=")
-	nodeName = zeile[0:ortZeichenIstgleich]
-	if(len(nodeName) > MAX_IDENT):
-		exit()
-	nodeId = int(zeile[ortZeichenIstgleich+1:])
-	if not (1 <= nodeId and nodeId <= MAX_NODE_ID):
-		exit()
-	node = Node(nodeName, nodeId)
-	nodes.append(node)
+nodes, node_names = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 
-for zeile in eingabeGewichteString:
-
-	zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
-	ortZeichenBindestrich = zeile.find("-")
-	ortZeichenDoppelPunkt = zeile.find(":")
-	node1 = zeile[0:ortZeichenBindestrich]
-	node2 = zeile[ortZeichenBindestrich+1:ortZeichenDoppelPunkt]
-	kantenGewicht = int(zeile[ortZeichenDoppelPunkt+1:])
-
-	if kantenGewicht > MAX_KOSTEN:
-		exit()
-
+links = [[Link()] * anzahl_nodes] * anzahl_nodes
+links = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links)

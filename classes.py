@@ -7,11 +7,11 @@ class Node:
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
 class Link:
-    def __init__(self):
+    def __init__(self, kosten = 0):
         # Linkkosten von Node_i -> Node_k
         # kosten = 0: kein Link vorhanden
         # Entspricht ursprüngliche Initialisierung des eingelesenen Graphen
-        self.kosten = 0
+        self.kosten = kosten
         # Über diesen Link erhaltene Nachricht der Nachbarknoten
         # mit Vorschlag der Root incl.Gesamtkosten zur Root
         self.rootID = 0
