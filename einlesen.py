@@ -1,6 +1,6 @@
 import logging
 from classes import Node, Link
-from functions import gewichteEintrange, nodesEintragen
+from functions import gewichteEintrange, nodesEintragen, nachrichtenaustausch, formatierte_ausgabe
 
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
@@ -24,7 +24,7 @@ alle Zeile mit : in einen Array
 nodeEingabeString = []
 eingabeGewichteString = []
 
-eingabe = open('Input-File', 'r')
+eingabe = open('Input-File2', 'r')
 logging.info(eingabe)
 inhalt = []
 
@@ -69,5 +69,8 @@ links =[[Link()] * anzahl_nodes for _ in range(anzahl_nodes)]
 links = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, nodes)
 logging.info("Matrix wurde erstellt")
 
-for record in links:
-	print(record)
+formatierte_ausgabe(nodes, links, anzahl_nodes)
+
+nachrichtenaustausch(nodes, links)
+
+formatierte_ausgabe(nodes, links, anzahl_nodes)

@@ -1,0 +1,11 @@
+ Graph beispiel {
+    A = 7;
+    B = 3;
+    C = 5;
+    D = 1;
+
+    A - B:1;
+    A - D:5;
+    D - C:2;
+    B - C:1;
+}

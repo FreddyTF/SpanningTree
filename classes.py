@@ -6,6 +6,9 @@ class Node:
         self.nextHop = 0            # Berechneter Link zum nächsten Knoten in Richtung Root
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
+    def __repr__(self):
+        return str(self.name).center(7)
+
 class Link:
     def __init__(self, kosten = 0, rootID = 0, summeKosten = 0):
         # Linkkosten von Node_i -> Node_k
@@ -21,21 +24,3 @@ class Link:
         string_summeKosten = str(self.summeKosten)
         string_rootID = str(self.rootID)
         return string_rootID.rjust(3) + ":" + string_summeKosten.ljust(3)
-
-def nachrichtenaustausch(nodes, links):
-    for node in nodes:
-        sendeZeileIndex = nodes.index(node)
-        zeile = links[sendeZeileIndex]
-        listeKanten = []
-        for i in range(len(zeile)):
-            if zeile[i].kosten > 0:
-               listeKanten.append(i)
-
-        for i in listeKanten:
-            if node.nodeID < links[i][sendeZeileIndex].rootID:
-                links[i][sendeZeileIndex].rootID = node.nodeID
-                links[i][sendeZeileIndex].summeKosten = node.nextHop
-            elif node.nodeID <= links[i][sendeZeileIndex].rootID:
-                if (node.nextHop + links[i][sendeZeileIndex].kosten) < links[i][sendeZeileIndex].summeKosten:
-                    links[i][sendeZeileIndex].rootID = node.nodeID
-                    links[i][sendeZeileIndex].summeKosten = node.nextHop
