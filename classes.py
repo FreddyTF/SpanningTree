@@ -15,5 +15,8 @@ class Link:
         # Über diesen Link erhaltene Nachricht der Nachbarknoten
         # mit Vorschlag der Root incl.Gesamtkosten zur Root
         self.rootID = 0
-
         self.summeKosten = 0
+
+    def __repr__(self):
+        string = str(self.kosten)
+        return string.rjust(3)

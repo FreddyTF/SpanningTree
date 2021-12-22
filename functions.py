@@ -29,8 +29,9 @@ def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links):
 
 		if kantenGewicht > MAX_KOSTEN:
 			exit()
-		node1postion = node_names.index(node1)
-		node2postion = node_names.index(node2)
-		links[node1postion][node2postion] = Link(kantenGewicht)
-		links[node2postion][node1postion] = Link(kantenGewicht)
+		node1position = node_names.index(node1)
+		node2position = node_names.index(node2)
+		links[node1position][node2position] = Link(kantenGewicht)
+		links[node2position][node1position] = Link(kantenGewicht)
+
 	return links
