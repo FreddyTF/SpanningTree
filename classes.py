@@ -7,19 +7,20 @@ class Node:
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
 class Link:
-    def __init__(self, kosten = 0):
+    def __init__(self, kosten = 0, rootID = 0, summeKosten = 0):
         # Linkkosten von Node_i -> Node_k
         # kosten = 0: kein Link vorhanden
         # Entspricht ursprüngliche Initialisierung des eingelesenen Graphen
         self.kosten = kosten
         # Über diesen Link erhaltene Nachricht der Nachbarknoten
         # mit Vorschlag der Root incl.Gesamtkosten zur Root
-        self.rootID = 0
-        self.summeKosten = 0
+        self.rootID = rootID
+        self.summeKosten = summeKosten
 
     def __repr__(self):
-        string = str(self.kosten)
-        return string.rjust(3)
+        string_summeKosten = str(self.summeKosten)
+        string_rootID = str(self.rootID)
+        return string_rootID.rjust(3) + ":" + string_summeKosten.ljust(3)
 
 def nachrichtenaustausch(nodes, links):
     for node in nodes:
@@ -34,7 +35,7 @@ def nachrichtenaustausch(nodes, links):
             if node.nodeID < links[i][sendeZeileIndex].rootID:
                 links[i][sendeZeileIndex].rootID = node.nodeID
                 links[i][sendeZeileIndex].summeKosten = node.nextHop
-            else if node.nodeID <= links[i][sendeZeileIndex].rootID:
+            elif node.nodeID <= links[i][sendeZeileIndex].rootID:
                 if (node.nextHop + links[i][sendeZeileIndex].kosten) < links[i][sendeZeileIndex].summeKosten:
                     links[i][sendeZeileIndex].rootID = node.nodeID
                     links[i][sendeZeileIndex].summeKosten = node.nextHop

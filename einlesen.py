@@ -66,7 +66,7 @@ node_names = []
 nodes, node_names = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 
 links =[[Link()] * anzahl_nodes for _ in range(anzahl_nodes)]
-links = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links)
+links = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, nodes)
 logging.info("Matrix wurde erstellt")
 
 for record in links:

@@ -17,7 +17,7 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 		node_names.append(nodeName)
 	return nodes, node_names
 
-def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links):
+def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, nodes):
 	for zeile in eingabeGewichteString:
 
 		zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
@@ -31,7 +31,7 @@ def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links):
 			exit()
 		node1position = node_names.index(node1)
 		node2position = node_names.index(node2)
-		links[node1position][node2position] = Link(kantenGewicht)
-		links[node2position][node1position] = Link(kantenGewicht)
+		links[node1position][node2position] = Link(kantenGewicht, nodes[node2position].nodeID)
+		links[node2position][node1position] = Link(kantenGewicht, nodes[node1position].nodeID)
 
 	return links
