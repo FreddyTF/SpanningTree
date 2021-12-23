@@ -1,7 +1,7 @@
 import logging
 from classes import Node, Kante
 from functions import nodesEintragen, gewichteEintrange
-
+from copy import deepcopy
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
 
@@ -68,21 +68,43 @@ liste_kanten = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes)
 
 
 for node in nodes:
-	#print(node)
 	for kante in liste_kanten:
 		if kante.woher == node.name or kante.wohin == node.name:
 			if kante.woher != node.name:
 				kante.kante_tausch()
-			node.append_kante(kante)
-			#print(kante)
+			node.append_kante(deepcopy(kante))
 
-#print("Ende")
-# for kante in liste_kanten:
-# 	print(kante)
-
-#
 for node in nodes:
 	print(node)
 	for kante in node.link:
 		print(kante)
+for node in nodes:
+	node_names.append(node.name)
 
+
+reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
+
+for node_name in reihenfolge:
+	node_index = node_names.index(node_name)
+	node = nodes[node_index]
+	print(node)
+
+	#angebot raussuchen
+	#node.summeKosten
+	#node.vermutetRootID
+
+	for kante in node.link:
+		empfangerNodeName = kante.wohin
+		empfangerNodeIndex = node_names.index(empfangerNodeName)
+		empfangerNode = nodes[empfangerNodeIndex]
+		if empfangerNode.vermuteteRootID > node.vermuteteRootID:
+			empfangerNode.vermuteteRootID = node.vermuteteRootID
+			empfangerNode.summeKosten = node.summeKosten + kante.kosten
+		elif empfangerNode.vermuteteRootID == node.vermuteteRootID:
+			if node.summeKosten + kante.kosten < empfangerNode.summeKosten:
+				empfangerNode.summeKosten = node.summeKosten + kante.kosten
+
+for node in nodes:
+	print(node)
+	print("summekosten", node.summeKosten)
+	print("vermuteteRootID", node.vermuteteRootID)
