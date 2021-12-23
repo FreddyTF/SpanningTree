@@ -68,18 +68,21 @@ liste_kanten = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes)
 
 
 for node in nodes:
-	print(node)
+	#print(node)
 	for kante in liste_kanten:
 		if kante.woher == node.name or kante.wohin == node.name:
 			if kante.woher != node.name:
 				kante.kante_tausch()
 			node.append_kante(kante)
-			print(kante)
+			#print(kante)
 
-print("Ende")
+#print("Ende")
 # for kante in liste_kanten:
 # 	print(kante)
+
 #
-# for node in nodes:
-# 	print(node)
+for node in nodes:
+	print(node)
+	for kante in node.link:
+		print(kante)
 
