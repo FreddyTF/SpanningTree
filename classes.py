@@ -1,26 +1,28 @@
 class Node:
-    def __init__(self, name, nodeID, nextHop):
+    def __init__(self, name, nodeID):
         self.name = name            # Bezeichner des Knotens
         self.nodeID = nodeID        # Knoten ID > 0
-        self.link = []              # Liste aller pot.Nachbarknoten
-        self.nextHop = nextHop      # Berechneter Link zum nächsten Knoten in Richtung Root
+        self.link = []         # 1. ZeileListe aller pot.Nachbarknoten
+        self.nextHop2Root = name # Name des Node an den er sendet
+        self.summeKosten = 0        # Kosten um zum Root zu senden
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
     def __repr__(self):
-        return (str(self.name) + " " +  str(self.nodeID) + " " + str(self.nextHop)).center(7)
+        return "Name" + str(self.name) + " ID" + str(self.nodeID) + " nH2R" + str(self.nextHop2Root) + " sum" + str(self.summeKosten)
 
-class Link:
-    def __init__(self, kosten = 0, rootID = 0, summeKosten = 0):
-        # Linkkosten von Node_i -> Node_k
-        # kosten = 0: kein Link vorhanden
-        # Entspricht ursprüngliche Initialisierung des eingelesenen Graphen
+    def append_kante(self, kante):
+        self.link.append(kante)
+
+
+class Kante:
+    def __init__(self, kosten, wohin, woher):
         self.kosten = kosten
-        # Über diesen Link erhaltene Nachricht der Nachbarknoten
-        # mit Vorschlag der Root incl.Gesamtkosten zur Root
-        self.rootID = rootID
-        self.summeKosten = summeKosten
+        self.wohin = wohin
+        self.woher = woher
+
+    def kante_tausch(self):
+        self.wohin, self.woher = self.woher, self.wohin
+        return
 
     def __repr__(self):
-        string_summeKosten = str(self.summeKosten)
-        string_rootID = str(self.rootID)
-        return string_rootID.rjust(3) + ":" + string_summeKosten.ljust(3)
+        return  "woher" + str(self.woher) + " wohin" + str(self.wohin) + " kosten" + str(self.kosten)

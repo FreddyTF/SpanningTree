@@ -1,6 +1,6 @@
 import logging
-from classes import Node, Link
-from functions import gewichteEintrange, nodesEintragen, nachrichtenaustausch, formatierte_ausgabe
+from classes import Node, Kante
+from functions import nodesEintragen, gewichteEintrange
 
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
@@ -63,14 +63,23 @@ for zeile in eingabeGewichteString:
 nodes = []
 node_names = []
 
-nodes, node_names = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
+nodes = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
+liste_kanten = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes)
 
-links =[[Link()] * anzahl_nodes for _ in range(anzahl_nodes)]
-links = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, nodes)
-logging.info("Matrix wurde erstellt")
 
-formatierte_ausgabe(nodes, links, anzahl_nodes)
+for node in nodes:
+	print(node)
+	for kante in liste_kanten:
+		if kante.woher == node.name or kante.wohin == node.name:
+			if kante.woher != node.name:
+				kante.kante_tausch()
+			node.append_kante(kante)
+			print(kante)
 
-nachrichtenaustausch(nodes, links)
+print("Ende")
+# for kante in liste_kanten:
+# 	print(kante)
+#
+# for node in nodes:
+# 	print(node)
 
-formatierte_ausgabe(nodes, links, anzahl_nodes)
