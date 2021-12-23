@@ -3,6 +3,7 @@ from classes import Link, Node
 
 
 def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID):
+	i = 0
 	for zeile in nodeEingabeString:
 		zeile = zeile.replace(' ', "").replace(';','').replace('\n','')
 		ortZeichenIstgleich = zeile.find("=")
@@ -12,9 +13,10 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 		nodeId = int(zeile[ortZeichenIstgleich+1:])
 		if not (1 <= nodeId and nodeId <= MAX_NODE_ID):
 			exit()
-		node = Node(nodeName, nodeId)
+		node = Node(nodeName, nodeId, i)
 		nodes.append(node)
 		node_names.append(nodeName)
+		i += 1
 	return nodes, node_names
 
 def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, nodes):
@@ -39,8 +41,8 @@ def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, node_names, links, node
 
 def nachrichtenaustausch(nodes, links):
     #for node in nodes:
-	#reihenfolge = [1,0,2,3,1,2,1]
-	reihenfolge = [0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5]
+	reihenfolge = [1,0,2,3,1,2,1]
+	#reihenfolge = [0,1,2]#,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5]
 	for k in reihenfolge:
 		node = nodes[k]
 		sendeZeileIndex = nodes.index(node)
@@ -51,19 +53,66 @@ def nachrichtenaustausch(nodes, links):
 			   listeKanten.append(i)
 
 		for i in listeKanten: #alle an Node verbundenen Knoten
+
 			neues_angebot_link = links[i][sendeZeileIndex]
 			print("neues_angebot_link = " , neues_angebot_link)
-			altes_angebot_link = links[sendeZeileIndex][i]
+
+			altes_angebot_link = 0
+			for nodeZeile in range(len(nodes)):
+				if links[nodeZeile][i].kosten:
+					if not altes_angebot_link:
+						altes_angebot_link = links[nodeZeile][i]
+					else:
+						if links[nodeZeile][i].rootID < altes_angebot_link.rootID:
+							altes_angebot_link = links[nodeZeile][i]
+						elif links[nodeZeile][i].rootID == altes_angebot_link.rootID:
+							if links[nodeZeile][i].summeKosten < altes_angebot_link.summeKosten:
+								altes_angebot_link = links[nodeZeile][i]
 			print("altes_angebot_link = ", altes_angebot_link)
+
+
 			if neues_angebot_link.rootID < altes_angebot_link.rootID:
-				altes_angebot_link.rootID = neues_angebot_link.rootID
-				altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
+				# neues_angebot_link.rootID = altes_angebot_link.rootID
+				neues_angebot_link.summeKosten = altes_angebot_link.summeKosten + altes_angebot_link.kosten
+			# altes_angebot_link.rootID = neues_angebot_link.rootID
+			# altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
 
 			elif neues_angebot_link.rootID == altes_angebot_link.rootID:
 				if not altes_angebot_link.summeKosten < neues_angebot_link.summeKosten + altes_angebot_link.kosten:
-					altes_angebot_link.rootID = neues_angebot_link.rootID
-					altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
+					# neues_angebot_link.rootID = altes_angebot_link.rootID
+					neues_angebot_link.summeKosten = altes_angebot_link.summeKosten + altes_angebot_link.kosten
 
+			# altes_angebot_link.rootID = neues_angebot_link.rootID
+			# altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
+
+			"""
+			if neues_angebot_link.rootID < altes_angebot_link.rootID:
+				for row_index in range(len(nodes)):
+					if links[row_index][i].kosten:
+						#neues_angebot_link.rootID = links[row_index][i].rootID
+						links[i][row_index].summeKosten = neues_angebot_link.summeKosten + neues_angebot_link.kosten
+
+			elif neues_angebot_link.rootID == altes_angebot_link.rootID:
+				if not altes_angebot_link.summeKosten < neues_angebot_link.summeKosten + altes_angebot_link.kosten:
+					links[sendeZeileIndex][row_index].rootID = neues_angebot_link.rootID
+					links[sendeZeileIndex][row_index].summeKosten = neues_angebot_link.summeKosten + \
+																	links[sendeZeileIndex][row_index].kosten
+			"""
+			"""
+			if neues_angebot_link.rootID < altes_angebot_link.rootID:
+				#neues_angebot_link.rootID = altes_angebot_link.rootID
+				neues_angebot_link.summeKosten = altes_angebot_link.summeKosten + altes_angebot_link.kosten
+				#altes_angebot_link.rootID = neues_angebot_link.rootID
+				#altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
+
+			elif neues_angebot_link.rootID == altes_angebot_link.rootID:
+				if not altes_angebot_link.summeKosten < neues_angebot_link.summeKosten + altes_angebot_link.kosten:
+					#neues_angebot_link.rootID = altes_angebot_link.rootID
+					neues_angebot_link.summeKosten = altes_angebot_link.summeKosten + altes_angebot_link.kosten
+
+					#altes_angebot_link.rootID = neues_angebot_link.rootID
+					#altes_angebot_link.summeKosten = neues_angebot_link.summeKosten + altes_angebot_link.kosten
+			"""
 		"""
 			if node.nodeID < links[i][sendeZeileIndex].rootID:
 				links[i][sendeZeileIndex].rootID = node.nodeID

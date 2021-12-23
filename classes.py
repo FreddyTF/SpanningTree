@@ -1,9 +1,9 @@
 class Node:
-    def __init__(self, name, nodeID):
+    def __init__(self, name, nodeID, nextHop):
         self.name = name            # Bezeichner des Knotens
         self.nodeID = nodeID        # Knoten ID > 0
         self.link = []              # Liste aller pot.Nachbarknoten
-        self.nextHop = 0            # Berechneter Link zum nächsten Knoten in Richtung Root
+        self.nextHop = nextHop      # Berechneter Link zum nächsten Knoten in Richtung Root
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
     def __repr__(self):
