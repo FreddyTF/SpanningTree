@@ -7,7 +7,7 @@ class Node:
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
 
     def __repr__(self):
-        return str(self.name).center(7)
+        return (str(self.name) + " " +  str(self.nodeID) + " " + str(self.nextHop)).center(7)
 
 class Link:
     def __init__(self, kosten = 0, rootID = 0, summeKosten = 0):

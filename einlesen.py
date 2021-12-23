@@ -24,7 +24,7 @@ alle Zeile mit : in einen Array
 nodeEingabeString = []
 eingabeGewichteString = []
 
-eingabe = open('Input-File2', 'r')
+eingabe = open('Input-File', 'r')
 logging.info(eingabe)
 inhalt = []
 
