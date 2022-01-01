@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, name, nodeID):
+    def __init__(self, name, nodeID, index):
         self.name = name            # Bezeichner des Knotens
         self.nodeID = nodeID        # Knoten ID > 0
         self.link = []              # 1. ZeileListe aller pot.Nachbarknoten
@@ -7,6 +7,10 @@ class Node:
         self.summeKosten = 0        # Kosten um zum Root zu senden
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
         self.vermuteteRootID = self.nodeID
+        self.sendeRichtungsName = self.name
+        self.index = index
+        self.sendeRichtungsIndex = index
+
 
     def __repr__(self):
         return "Name" + str(self.name) + " ID" + str(self.nodeID) + " nH2R" + str(self.nextHop2Root) + " sum" + str(self.summeKosten)

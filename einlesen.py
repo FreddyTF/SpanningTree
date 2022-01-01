@@ -4,7 +4,8 @@ from functions import nodesEintragen, gewichteEintrange
 from copy import deepcopy
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
-
+import time
+from random import randint
 
 MAX_IDENT = 5     #Maximallänge für Namen
 MAX_ITEMS = 100   #Maximale Zeilenanzahl für die Eingabedatei
@@ -24,7 +25,7 @@ alle Zeile mit : in einen Array
 nodeEingabeString = []
 eingabeGewichteString = []
 
-eingabe = open('Input-File2', 'r')
+eingabe = open('Input-File', 'r')
 logging.info(eingabe)
 inhalt = []
 
@@ -74,21 +75,24 @@ for node in nodes:
 				kante.kante_tausch()
 			node.append_kante(deepcopy(kante))
 
-for node in nodes:
-	print(node)
-	for kante in node.link:
-		print(kante)
+# for node in nodes:
+# 	#print(node)
+# 	for kante in node.link:
+# 		print(kante)
 for node in nodes:
 	node_names.append(node.name)
 
 
-reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
+#reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
 
-for node_name in reihenfolge:
-	node_index = node_names.index(node_name)
+#for node_name in reihenfolge:
+for counter in range(100):
+	node_index = randint(0,anzahl_nodes - 1)
+	logging.info(node_index)
+	#node_index = node_names.index(node_name)
 	node = nodes[node_index]
-	print(node)
-
+	#print(node)
+	node.msgCnt += 1
 	#angebot raussuchen
 	#node.summeKosten
 	#node.vermutetRootID
@@ -100,11 +104,18 @@ for node_name in reihenfolge:
 		if empfangerNode.vermuteteRootID > node.vermuteteRootID:
 			empfangerNode.vermuteteRootID = node.vermuteteRootID
 			empfangerNode.summeKosten = node.summeKosten + kante.kosten
+			empfangerNode.sendeRichtungsName = node.name
+			empfangerNode.sendeRichtungsIndex = node.index
 		elif empfangerNode.vermuteteRootID == node.vermuteteRootID:
 			if node.summeKosten + kante.kosten < empfangerNode.summeKosten:
 				empfangerNode.summeKosten = node.summeKosten + kante.kosten
+				empfangerNode.sendeRichtungsName = node.name
+				empfangerNode.sendeRichtungsIndex = node.index
+# for node in nodes:
+# 	print(node)
+# 	print("summekosten", node.summeKosten)
+# 	print("vermuteteRootID", node.vermuteteRootID)
 
+#Endausgabe
 for node in nodes:
-	print(node)
-	print("summekosten", node.summeKosten)
-	print("vermuteteRootID", node.vermuteteRootID)
+	print(node.name , " - ", node.sendeRichtungsName, "(Index ", node.sendeRichtungsIndex , ")")

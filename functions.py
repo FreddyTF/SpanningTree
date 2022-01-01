@@ -12,8 +12,9 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 		nodeId = int(zeile[ortZeichenIstgleich+1:])
 		if not (1 <= nodeId and nodeId <= MAX_NODE_ID):
 			exit()
-		node = Node(nodeName, nodeId)
+		node = Node(nodeName, nodeId, i)
 		nodes.append(node)
+		i += 1
 
 
 	return nodes
