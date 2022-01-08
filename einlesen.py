@@ -1,6 +1,6 @@
 import logging
 from classes import Node, Kante
-from functions import nodesEintragen, gewichteEintrange
+from functions import nodesEintragen, gewichteEintrange, every_node_x_times
 from copy import deepcopy
 LOG = logging.getLogger()
 LOG.setLevel(logging.DEBUG)
@@ -86,13 +86,18 @@ for node in nodes:
 #reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
 
 #for node_name in reihenfolge:
-for counter in range(100):
+counter = 0
+x = 10
+while (counter < 100 and every_node_x_times(x, nodes)):
+
 	node_index = randint(0,anzahl_nodes - 1)
 	logging.info(node_index)
 	#node_index = node_names.index(node_name)
 	node = nodes[node_index]
 	#print(node)
 	node.msgCnt += 1
+
+
 	#angebot raussuchen
 	#node.summeKosten
 	#node.vermutetRootID
@@ -111,6 +116,12 @@ for counter in range(100):
 				empfangerNode.summeKosten = node.summeKosten + kante.kosten
 				empfangerNode.sendeRichtungsName = node.name
 				empfangerNode.sendeRichtungsIndex = node.index
+
+	counter += 1
+
+
+
+
 # for node in nodes:
 # 	print(node)
 # 	print("summekosten", node.summeKosten)

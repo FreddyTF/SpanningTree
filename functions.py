@@ -36,3 +36,9 @@ def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes):
 		liste_links.append(neuerLink)
 
 	return liste_links
+
+def every_node_x_times(x, nodes):
+	for node in nodes:
+		if node.msgCnt < 10:
+			return False
+	return True
