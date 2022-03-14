@@ -88,7 +88,7 @@ def main():
     # for node_name in reihenfolge:
     counter = 0
     x = 10
-    while (counter < 100 and every_node_x_times(x, nodes)):
+    while (counter < 100 and not every_node_x_times(x, nodes)):
 
         node_index = randint(0, anzahl_nodes - 1)
         logging.info(node_index)
@@ -118,10 +118,10 @@ def main():
 
         counter += 1
 
-    # for node in nodes:
-    # 	print(node)
-    # 	print("summekosten", node.summeKosten)
-    # 	print("vermuteteRootID", node.vermuteteRootID)
+    #for node in nodes:
+    #    print(node)
+    #    print("summekosten", node.summeKosten)
+    #    print("vermuteteRootID", node.vermuteteRootID)
 
     # Endausgabe
     for node in nodes:
