@@ -11,6 +11,9 @@ LOG.setLevel(logging.DEBUG)
 
 
 def main():
+    """
+    Initalisierung der oberen Grenze für bestimmte Parameter
+    """
 
     MAX_IDENT = 5  # Maximallänge für Namen
     MAX_ITEMS = 100  # Maximale Zeilenanzahl für die Eingabedatei
@@ -25,23 +28,28 @@ def main():
 
     """
 
-    nodeEingabeString = []
-    eingabeGewichteString = []
-
+    # Input File einlesen
     eingabe = open('Input-File', 'r')
     logging.info(eingabe)
     inhalt = []
 
-    zeilenanzahl = 0
     for zeile in eingabe:
         inhalt.append(zeile)
-        zeilenanzahl += 1
 
-    logging.info("zeilenanzahl = " + str(zeilenanzahl))
+
+    eingabe.close()
+
+    zeilenanzahl = len(inhalt)
+
+    logging.info(f"zeilenanzahl = {zeilenanzahl}")
 
     if zeilenanzahl > MAX_ITEMS:
         print("Zeilenanzahl zu gross")
         exit(1)
+
+
+    nodeEingabeString = []
+    eingabeGewichteString = []
 
     for zeile in inhalt:
         if not zeile.__contains__("//"):
@@ -52,7 +60,7 @@ def main():
                 eingabeGewichteString.append(zeile)
                 logging.info("Kante hinzugefügt zur passenden Liste")
 
-    eingabe.close()
+
 
     anzahl_nodes = 0
     anzahl_kanten = 0
