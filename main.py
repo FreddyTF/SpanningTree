@@ -53,11 +53,11 @@ def main():
     eingabeGewichteString = []
 
     for zeile in inhalt:
-        if not zeile.__contains__("//"):
-            if (zeile.__contains__("=")):
+        if not "//"in zeile:
+            if "=" in zeile:
                 nodeEingabeString.append(zeile)
                 logging.info("Node hinzugefügt zur passenden Liste")
-            elif (zeile.__contains__("-") and zeile.__contains__(":")):
+            elif ("-" in zeile and ":" in zeile):
                 eingabeGewichteString.append(zeile)
                 logging.info("Kante hinzugefügt zur passenden Liste")
 
