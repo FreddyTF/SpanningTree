@@ -1,6 +1,6 @@
 import logging
 from classes import Node, Kante
-from functions import nodesEintragen, gewichteEintrange, every_node_x_times
+from functions import nodesEintragen, gewichteEintragen, every_node_x_times
 from copy import deepcopy
 
 from random import randint
@@ -43,11 +43,12 @@ def main():
 
     logging.info(f"zeilenanzahl = {zeilenanzahl}")
 
+    # Programmabbruch, wenn Eingabedatei zu groß
     if zeilenanzahl > MAX_ITEMS:
         print("Zeilenanzahl zu gross")
         exit(1)
 
-
+    # Anlegen von Listen für Node und Gewichte von Verbindungen
     nodeEingabeString = []
     eingabeGewichteString = []
 
@@ -55,27 +56,22 @@ def main():
         if not zeile.__contains__("//"):
             if (zeile.__contains__("=")):
                 nodeEingabeString.append(zeile)
-                logging.info("node hinzugefügt zur passenden Liste")
+                logging.info("Node hinzugefügt zur passenden Liste")
             elif (zeile.__contains__("-") and zeile.__contains__(":")):
                 eingabeGewichteString.append(zeile)
                 logging.info("Kante hinzugefügt zur passenden Liste")
 
 
+    # Initialisierung der Variablen für die Anzahl der Knoten und Kanten
+    anzahl_nodes = len(nodeEingabeString)
+    # anzahl_kanten = len(eingabeGewichteString)
 
-    anzahl_nodes = 0
-    anzahl_kanten = 0
-
-    for zeile in nodeEingabeString:
-        anzahl_nodes += 1
-
-    for zeile in eingabeGewichteString:
-        anzahl_kanten += 1
-
+    # Initialiserung der Arrays für Nodes und deren zugehörigen Daten
     nodes = []
     node_names = []
 
-    nodes = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
-    liste_kanten = gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes)
+    nodes = nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID)
+    liste_kanten = gewichteEintragen(eingabeGewichteString, MAX_KOSTEN)
 
     for node in nodes:
         for kante in liste_kanten:
@@ -88,6 +84,7 @@ def main():
     # 	#print(node)
     # 	for kante in node.link:
     # 		print(kante)
+
     for node in nodes:
         node_names.append(node.name)
 

@@ -1,7 +1,7 @@
 from classes import Node, Kante
 
 
-def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID):
+def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID):
 	i = 0
 	for zeile in nodeEingabeString:
 		zeile = zeile.replace(' ', "").replace(';','').replace('\n','')
@@ -15,11 +15,9 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, node_names, MAX_NODE_ID)
 		node = Node(nodeName, nodeId, i)
 		nodes.append(node)
 		i += 1
-
-
 	return nodes
 
-def gewichteEintrange(eingabeGewichteString, MAX_KOSTEN, nodes):
+def gewichteEintragen(eingabeGewichteString, MAX_KOSTEN):
 	liste_links = []
 	for zeile in eingabeGewichteString:
 
