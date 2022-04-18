@@ -80,11 +80,6 @@ def main():
                     kante.kante_tausch()
                 node.append_kante(deepcopy(kante))
 
-    # for node in nodes:
-    # 	#print(node)
-    # 	for kante in node.link:
-    # 		print(kante)
-
     for node in nodes:
         node_names.append(node.name)
 

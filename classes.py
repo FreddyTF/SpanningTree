@@ -3,7 +3,6 @@ class Node:
         self.name = name            # Bezeichner des Knotens
         self.nodeID = nodeID        # Knoten ID > 0
         self.link = []              # 1. ZeileListe aller pot.Nachbarknoten
-        self.nextHop2Root = name    # Name des Node an den er sendet
         self.summeKosten = 0        # Kosten um zum Root zu senden
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
         self.vermuteteRootID = self.nodeID
@@ -13,7 +12,7 @@ class Node:
 
 
     def __repr__(self):
-        return "Name" + str(self.name) + " ID" + str(self.nodeID) + " nH2R" + str(self.nextHop2Root) + " sum" + str(self.summeKosten)
+        return "Name" + str(self.name) + " ID" + str(self.nodeID) +  " sum" + str(self.summeKosten)
 
     def append_kante(self, kante):
         self.link.append(kante)
