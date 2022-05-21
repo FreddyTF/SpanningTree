@@ -15,27 +15,28 @@ def main():
     Initalisierung der oberen Grenze für bestimmte Parameter
     """
 
-    MAX_IDENT = 5      # Maximallänge für Namen
-    MAX_ITEMS = 100    # Maximale Zeilenanzahl für die Eingabedatei
-    MAX_COSTS = 100    # Maximales Wegekosten einer Kante
-    MAX_NODE_ID = 100  # Maximale Knoten Id
+    MAX_IDENT = 5  # Maximallänge für Namen
+    MAX_ITEMS = 100  # Maximale Zeilenanzahl für die Eingabedatei
+    MAX_COSTS = 100  # Maximales Wegekosten einer Kante
+    MAX_NODE_ID = 100  # Maximale Knoten-ID
 
     """
     Input
 
-    alle Zeilen mit = in ein Array
-    alle Zeile  mit : in ein Array
+    alle Zeilen mit = in eine Liste mit den Zeilen für die Knoten einlesen
+    alle Zeile  mit : in eine Liste mit den Zeilen für die Kanten einlesen
 
     """
 
     # Input File einlesen
     eingabe = open('Input-File', 'r')
     logging.info(eingabe)
-    inhaltList = []
+
+    # Anlegen der Liste mit den Zeilen der Eingabedatei
+    inhaltList = []  # Liste mit den Zeilen der Eingabedatei
 
     for zeile in eingabe:
         inhaltList.append(zeile)
-
 
     eingabe.close()
 
@@ -43,17 +44,17 @@ def main():
 
     logging.info(f"zeilenanzahl = {zeilenanzahl}")
 
-    # Programmabbruch, wenn Eingabedatei zu groß
+    # Programmabbruch, wenn die Eingabedatei zu groß ist
     if zeilenanzahl > MAX_ITEMS:
         print("Zeilenanzahl zu gross")
         exit(1)
 
-    # Anlegen von Listen für Node und Gewichte von Verbindungen
-    nodeEingabeString = []
-    edgeEingabeString = []
+    # Listen mit den Zeilen für Knoten und Kanten erstellen
+    nodeEingabeString = []  # Liste mit den Zeilen für die Knoten
+    edgeEingabeString = []  # Liste mit den Zeilen für die Kanten
 
     for zeile in inhaltList:
-        if not "//"in zeile:
+        if not "//" in zeile:
             if "=" in zeile:
                 nodeEingabeString.append(zeile)
                 logging.info("Knoten hinzugefügt zur passenden Liste")
@@ -61,14 +62,15 @@ def main():
                 edgeEingabeString.append(zeile)
                 logging.info("Kante hinzugefügt zur passenden Liste")
 
-
-    # Initialisierung der Variablen für die Anzahl der Knoten und Kanten
+    # Anzahl der Knoten ermitteln
     anzahl_nodes = len(nodeEingabeString)
 
-    # Initialiserung der Arrays für Nodes und deren zugehörigen Daten
-    nodeList = []
-    nodeNameList = []
-    edgeList = []
+    # Anlegen der Listen für Knoten, Knotennamen und Kanten
+    nodeList = []  # Liste der Knoten
+    nodeNameList = []  # Liste der Knotennamen
+    edgeList = []  # Liste der Kanten
+
+    # Daten aus den Listen mit den Zeilen für Knoten und Kanten extrahieren
 
     nodeList = nodesEintragen(nodeEingabeString, MAX_IDENT, nodeList, MAX_NODE_ID)
     edgeList = edgesEintragen(edgeEingabeString, MAX_COSTS, edgeList)
@@ -82,15 +84,15 @@ def main():
                     edge.edgeTausch()
                 node.append_edge(deepcopy(edge))
 
-    # Erstellung der Liste mit den Namen der Knoten
+    # Erstellung der Liste mit den Knotennamen
 
     for node in nodeList:
         nodeNameList.append(node.nodeName)
 
     # Bestimmung des Root-Knotens und des Spanning-Trees nach Bellman Ford
 
-    counter = 0 # Wie oft die While-Schleife mindestens durchlaufen werden soll
-    x = 10      # Wie oft jeder einzelne Knoten mindestens durchlaufen werden soll
+    counter = 0  # Zähler der Schleifendurchläufe
+    x = 10  # Minimalanzahl der Durchläufe für jeden Knoten
 
     while (counter < 100 and not every_node_x_times(x, nodeList)):
 
@@ -100,7 +102,7 @@ def main():
         node.msgCnt += 1
 
         # angebot raussuchen
-        # node.summeKosten
+        # node.sumRootCosts
         # node.vermutetRootID
 
         for edge in node.edgeList:
@@ -122,13 +124,16 @@ def main():
 
     # for node in nodes:
     #     print(node)
-    #     print("summekosten", node.summeKosten)
+    #     print("sumRootCosts", node.sumRootCosts)
     #     print("vermuteteRootID", node.vermuteteRootID)
 
     # Endausgabe
     for node in nodeList:
         print(node.nodeName, " - ", node.sendeRichtungsName, "(Index ", node.sendeRichtungsIndex, ")")
 
+    listRootNodes = [node for node in nodeList if node.sumRootCosts == 0]
+    for node in listRootNodes:
+        print(f"Root Node: {node.nodeName}")
 
 if __name__ == "__main__":
     main()
