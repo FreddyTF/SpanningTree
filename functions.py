@@ -17,8 +17,8 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID):
 		i += 1
 	return nodes
 
-def edgesEintragen(eingabeGewichteString, MAX_KOSTEN, edgeList):
-	for zeile in eingabeGewichteString:
+def edgesEintragen(edgeEingabeString, MAX_COSTS, edgeList):
+	for zeile in edgeEingabeString:
 
 		zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
 		ortZeichenBindestrich = zeile.find("-")
@@ -27,8 +27,9 @@ def edgesEintragen(eingabeGewichteString, MAX_KOSTEN, edgeList):
 		nodeWohin = zeile[ortZeichenBindestrich + 1:ortZeichenDoppelPunkt]
 		edgeCosts = int(zeile[ortZeichenDoppelPunkt + 1:])
 
-		if edgeCosts > MAX_KOSTEN:
+		if edgeCosts > MAX_COSTS:
 			exit()
+
 		neueEdge = Edge(edgeCosts, nodeWoher, nodeWohin)
 		edgeList.append(neueEdge)
 

@@ -64,7 +64,6 @@ def main():
 
     # Initialisierung der Variablen für die Anzahl der Knoten und Kanten
     anzahl_nodes = len(nodeEingabeString)
-    # anzahl_kanten = len(eingabeGewichteString)
 
     # Initialiserung der Arrays für Nodes und deren zugehörigen Daten
     nodeList = []
@@ -74,6 +73,8 @@ def main():
     nodeList = nodesEintragen(nodeEingabeString, MAX_IDENT, nodeList, MAX_NODE_ID)
     edgeList = edgesEintragen(edgeEingabeString, MAX_COSTS, edgeList)
 
+    # Ermittlung der Nachbarknoten und Wegekosten für jeden Knoten
+
     for node in nodeList:
         for edge in edgeList:
             if edge.woher == node.nodeName or edge.wohin == node.nodeName:
@@ -81,21 +82,21 @@ def main():
                     edge.kante_tausch()
                 node.append_edge(deepcopy(edge))
 
+    # Erstellung der Liste mit den Namen der Knoten
+
     for node in nodeList:
         nodeNameList.append(node.nodeName)
 
-    # reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
+    # Bestimmung des Root-Knotens und des Spanning-Trees nach Bellman Ford
 
-    # for node_name in reihenfolge:
     counter = 0
     x = 10
+
     while (counter < 100 and not every_node_x_times(x, nodeList)):
 
         node_index = randint(0, anzahl_nodes - 1)
         logging.info(node_index)
-        # node_index = node_names.index(node_name)
         node = nodeList[node_index]
-        # print(node)
         node.msgCnt += 1
 
         # angebot raussuchen
@@ -119,10 +120,10 @@ def main():
 
         counter += 1
 
-    #for node in nodes:
-    #    print(node)
-    #    print("summekosten", node.summeKosten)
-    #    print("vermuteteRootID", node.vermuteteRootID)
+    # for node in nodes:
+    #     print(node)
+    #     print("summekosten", node.summeKosten)
+    #     print("vermuteteRootID", node.vermuteteRootID)
 
     # Endausgabe
     for node in nodeList:
