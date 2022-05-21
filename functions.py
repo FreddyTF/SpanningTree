@@ -17,7 +17,7 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID):
 		i += 1
 	return nodes
 
-def gewichteEintragen(eingabeGewichteString, MAX_KOSTEN):
+def costsEintragen(eingabeGewichteString, MAX_KOSTEN):
 	liste_links = []
 	for zeile in eingabeGewichteString:
 
