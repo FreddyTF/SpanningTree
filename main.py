@@ -89,8 +89,8 @@ def main():
 
     # Bestimmung des Root-Knotens und des Spanning-Trees nach Bellman Ford
 
-    counter = 0
-    x = 10
+    counter = 0 # Wie oft die While-Schleife mindestens durchlaufen werden soll
+    x = 10      # Wie oft jeder einzelne Knoten mindestens durchlaufen werden soll
 
     while (counter < 100 and not every_node_x_times(x, nodeList)):
 
