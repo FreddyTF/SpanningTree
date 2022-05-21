@@ -1,26 +1,26 @@
 class Node:
-    def __init__(self, name, nodeID, index):
-        self.name = name            # Bezeichner des Knotens
+    def __init__(self, nodeName, nodeID, index):
+        self.nodeName = nodeName    # Bezeichner des Knotens
         self.nodeID = nodeID        # Knoten ID > 0
-        self.link = []              # 1. ZeileListe aller pot.Nachbarknoten
-        self.summeKosten = 0        # Kosten um zum Root zu senden
+        self.linkList = []          # Liste aller pot.Nachbarknoten
+        self.sumRootCosts = 0       # Kosten, um zum Root zu senden
         self.msgCnt = 0             # Zählt mit, wie oft der Knoten bei der Bearbeitung des Algorithmus aufgerufen wird
         self.vermuteteRootID = self.nodeID
-        self.sendeRichtungsName = self.name
+        self.sendeRichtungsName = self.nodeName
         self.index = index
         self.sendeRichtungsIndex = index
 
 
     def __repr__(self):
-        return "Name" + str(self.name) + " ID" + str(self.nodeID) +  " sum" + str(self.summeKosten)
+        return "Name" + str(self.nodeName) + " ID" + str(self.nodeID) + " sum" + str(self.sumRootCosts)
 
-    def append_kante(self, kante):
-        self.link.append(kante)
+    def append_edge(self, edge):
+        self.linkList.append(edge)
 
 
-class Kante:
-    def __init__(self, kosten, wohin, woher):
-        self.kosten = kosten
+class Edge:
+    def __init__(self, costs, wohin, woher):
+        self.costs = costs
         self.wohin = wohin
         self.woher = woher
 
@@ -29,4 +29,4 @@ class Kante:
         return
 
     def __repr__(self):
-        return  "woher" + str(self.woher) + " wohin" + str(self.wohin) + " kosten" + str(self.kosten)
+        return  "woher" + str(self.woher) + " wohin" + str(self.wohin) + " costs" + str(self.costs)

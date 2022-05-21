@@ -1,5 +1,5 @@
 import logging
-from classes import Node, Kante
+from classes import Node, Edge
 from functions import nodesEintragen, gewichteEintragen, every_node_x_times
 from copy import deepcopy
 
@@ -75,13 +75,13 @@ def main():
 
     for node in nodes:
         for kante in liste_kanten:
-            if kante.woher == node.name or kante.wohin == node.name:
-                if kante.woher != node.name:
+            if kante.woher == node.nodeName or kante.wohin == node.nodeName:
+                if kante.woher != node.nodeName:
                     kante.kante_tausch()
-                node.append_kante(deepcopy(kante))
+                node.append_edge(deepcopy(kante))
 
     for node in nodes:
-        node_names.append(node.name)
+        node_names.append(node.nodeName)
 
     # reihenfolge = ["B", "A", "C", "D", "B", "C", "B"]
 
@@ -101,19 +101,19 @@ def main():
         # node.summeKosten
         # node.vermutetRootID
 
-        for kante in node.link:
+        for kante in node.linkList:
             empfangerNodeName = kante.wohin
             empfangerNodeIndex = node_names.index(empfangerNodeName)
             empfangerNode = nodes[empfangerNodeIndex]
             if empfangerNode.vermuteteRootID > node.vermuteteRootID:
                 empfangerNode.vermuteteRootID = node.vermuteteRootID
-                empfangerNode.summeKosten = node.summeKosten + kante.kosten
-                empfangerNode.sendeRichtungsName = node.name
+                empfangerNode.sumRootCosts = node.sumRootCosts + kante.costs
+                empfangerNode.sendeRichtungsName = node.nodeName
                 empfangerNode.sendeRichtungsIndex = node.index
             elif empfangerNode.vermuteteRootID == node.vermuteteRootID:
-                if node.summeKosten + kante.kosten < empfangerNode.summeKosten:
-                    empfangerNode.summeKosten = node.summeKosten + kante.kosten
-                    empfangerNode.sendeRichtungsName = node.name
+                if node.sumRootCosts + kante.costs < empfangerNode.sumRootCosts:
+                    empfangerNode.sumRootCosts = node.sumRootCosts + kante.costs
+                    empfangerNode.sendeRichtungsName = node.nodeName
                     empfangerNode.sendeRichtungsIndex = node.index
 
         counter += 1
@@ -125,7 +125,7 @@ def main():
 
     # Endausgabe
     for node in nodes:
-        print(node.name, " - ", node.sendeRichtungsName, "(Index ", node.sendeRichtungsIndex, ")")
+        print(node.nodeName, " - ", node.sendeRichtungsName, "(Index ", node.sendeRichtungsIndex, ")")
 
 
 if __name__ == "__main__":

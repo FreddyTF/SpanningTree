@@ -1,4 +1,4 @@
-from classes import Node, Kante
+from classes import Node, Edge
 
 
 def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID):
@@ -30,7 +30,7 @@ def gewichteEintragen(eingabeGewichteString, MAX_KOSTEN):
 
 		if kantenGewicht > MAX_KOSTEN:
 			exit()
-		neuerLink = Kante(kantenGewicht, node1, node2)
+		neuerLink = Edge(kantenGewicht, node1, node2)
 		liste_links.append(neuerLink)
 
 	return liste_links
