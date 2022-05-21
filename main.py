@@ -17,8 +17,8 @@ def main():
 
     MAX_IDENT = 5      # Maximallänge für Namen
     MAX_ITEMS = 100    # Maximale Zeilenanzahl für die Eingabedatei
-    MAX_COSTS = 100    # Maximales Wegekostes einer Kante
-    MAX_NODE_ID = 100  # Maximale Konten Id
+    MAX_COSTS = 100    # Maximales Wegekosten einer Kante
+    MAX_NODE_ID = 100  # Maximale Knoten Id
 
     """
     Input
@@ -31,15 +31,15 @@ def main():
     # Input File einlesen
     eingabe = open('Input-File', 'r')
     logging.info(eingabe)
-    inhalt = []
+    inhaltList = []
 
     for zeile in eingabe:
-        inhalt.append(zeile)
+        inhaltList.append(zeile)
 
 
     eingabe.close()
 
-    zeilenanzahl = len(inhalt)
+    zeilenanzahl = len(inhaltList)
 
     logging.info(f"zeilenanzahl = {zeilenanzahl}")
 
@@ -50,15 +50,15 @@ def main():
 
     # Anlegen von Listen für Node und Gewichte von Verbindungen
     nodeEingabeString = []
-    costsEingabeGewichteString = []
+    edgeEingabeString = []
 
-    for zeile in inhalt:
+    for zeile in inhaltList:
         if not "//"in zeile:
             if "=" in zeile:
                 nodeEingabeString.append(zeile)
-                logging.info("Node hinzugefügt zur passenden Liste")
+                logging.info("Knoten hinzugefügt zur passenden Liste")
             elif ("-" in zeile and ":" in zeile):
-                costsEingabeGewichteString.append(zeile)
+                edgeEingabeString.append(zeile)
                 logging.info("Kante hinzugefügt zur passenden Liste")
 
 
@@ -69,9 +69,10 @@ def main():
     # Initialiserung der Arrays für Nodes und deren zugehörigen Daten
     nodeList = []
     nodeNameList = []
+    edgeList = []
 
     nodeList = nodesEintragen(nodeEingabeString, MAX_IDENT, nodeList, MAX_NODE_ID)
-    edgeList = costsEintragen(costsEingabeGewichteString, MAX_COSTS)
+    edgeList = costsEintragen(edgeEingabeString, MAX_COSTS, edgeList)
 
     for node in nodeList:
         for edge in edgeList:
