@@ -24,7 +24,7 @@ class Edge:
         self.woher = woher # nodeName des Startknotens der Kante
         self.wohin = wohin # nodeName des Endknotens der Kante
 
-    def kante_tausch(self):
+    def edgeTausch(self):
         (self.wohin, self.woher) = (self.woher, self.wohin)
         return
 

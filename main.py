@@ -79,7 +79,7 @@ def main():
         for edge in edgeList:
             if edge.woher == node.nodeName or edge.wohin == node.nodeName:
                 if edge.woher != node.nodeName:
-                    edge.kante_tausch()
+                    edge.edgeTausch()
                 node.append_edge(deepcopy(edge))
 
     # Erstellung der Liste mit den Namen der Knoten
