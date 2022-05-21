@@ -37,6 +37,6 @@ def edgesEintragen(edgeEingabeString, MAX_COSTS, edgeList):
 
 def every_node_x_times(x, nodes):
 	for node in nodes:
-		if node.msgCnt < 10:
+		if node.msgCnt < x:
 			return False
 	return True
