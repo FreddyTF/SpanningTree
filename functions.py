@@ -17,7 +17,7 @@ def nodesEintragen(nodeEingabeString, MAX_IDENT, nodes, MAX_NODE_ID):
 		i += 1
 	return nodes
 
-def costsEintragen(eingabeGewichteString, MAX_KOSTEN, edgeList):
+def edgesEintragen(eingabeGewichteString, MAX_KOSTEN, edgeList):
 	for zeile in eingabeGewichteString:
 
 		zeile = zeile.replace(' ', "").replace(';', '').replace('\n', '')
@@ -29,8 +29,8 @@ def costsEintragen(eingabeGewichteString, MAX_KOSTEN, edgeList):
 
 		if edgeCosts > MAX_KOSTEN:
 			exit()
-		neuerLink = Edge(edgeCosts, nodeWoher, nodeWohin)
-		edgeList.append(neuerLink)
+		neueEdge = Edge(edgeCosts, nodeWoher, nodeWohin)
+		edgeList.append(neueEdge)
 
 	return edgeList
 

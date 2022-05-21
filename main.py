@@ -1,6 +1,6 @@
 import logging
 from classes import Node, Edge
-from functions import nodesEintragen, costsEintragen, every_node_x_times
+from functions import nodesEintragen, edgesEintragen, every_node_x_times
 from copy import deepcopy
 
 from random import randint
@@ -72,7 +72,7 @@ def main():
     edgeList = []
 
     nodeList = nodesEintragen(nodeEingabeString, MAX_IDENT, nodeList, MAX_NODE_ID)
-    edgeList = costsEintragen(edgeEingabeString, MAX_COSTS, edgeList)
+    edgeList = edgesEintragen(edgeEingabeString, MAX_COSTS, edgeList)
 
     for node in nodeList:
         for edge in edgeList:
@@ -102,7 +102,7 @@ def main():
         # node.summeKosten
         # node.vermutetRootID
 
-        for edge in node.linkList:
+        for edge in node.edgeList:
             empfangerNodeName = edge.wohin
             empfangerNodeIndex = nodeNameList.index(empfangerNodeName)
             empfangerNode = nodeList[empfangerNodeIndex]
